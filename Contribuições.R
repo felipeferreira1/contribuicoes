@@ -9,7 +9,6 @@
 #PACOTES REQUERIDOS:
 #INSTALAR QUANDO NECESSÁRIO
 #EXEMPLO:install.packages("pryr")
-library(rbcb)
 library(xlsx)
 
 #DEFINIR PASTAS DE RESULTADOS:
@@ -17,35 +16,36 @@ getwd()
 setwd("//SRJN3/area_corporativa/Projeto GAP-DIMAC/Automatizações/Contribuições")
 
 #ATUALIZAR DATA (alinhar com primeiro mes dos dados)
-data1="2011-03-01"
+data1="01/03/2011"
+data2="31/12/2018"
 
 #1)Pessoas Jurídicas - Recursos livres
 serie=c(20544,20545,20546,20547,20548,20549,20551,20552,20553,20554,20556,20557,20559,20560,20561,20562,20563,20565,20566,20567,20568,20569,20543)
 
 
-vec_ind1 = get_series(serie[1], start_date = data1)
-vec_ind2 = get_series(serie[2], start_date = data1)
-vec_ind3 = get_series(serie[3], start_date = data1)
-vec_ind4 = get_series(serie[4], start_date = data1)
-vec_ind5 = get_series(serie[5], start_date = data1)
-vec_ind6 = get_series(serie[6], start_date = data1)
-vec_ind7 = get_series(serie[7], start_date = data1)
-vec_ind8 = get_series(serie[8], start_date = data1)
-vec_ind9 = get_series(serie[9], start_date = data1)
-vec_ind10 = get_series(serie[10], start_date = data1)
-vec_ind11 = get_series(serie[11], start_date = data1)
-vec_ind12 = get_series(serie[12], start_date = data1)
-vec_ind13 = get_series(serie[13], start_date = data1)
-vec_ind14 = get_series(serie[14], start_date = data1)
-vec_ind15 = get_series(serie[15], start_date = data1)
-vec_ind16 = get_series(serie[16], start_date = data1)
-vec_ind17 = get_series(serie[17], start_date = data1)
-vec_ind18 = get_series(serie[18], start_date = data1)
-vec_ind19 = get_series(serie[19], start_date = data1)
-vec_ind20 = get_series(serie[20], start_date = data1)
-vec_ind21 = get_series(serie[21], start_date = data1)
-vec_ind22 = get_series(serie[22], start_date = data1)
-vec_ind23 = get_series(serie[23], start_date = data1)
+vec_ind1=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[1],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind2=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[2],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind3=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[3],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind4=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[4],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind5=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[5],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind6=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[6],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind7=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[7],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind8=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[8],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind9=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[9],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind10=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[10],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind11=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[11],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind12=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[12],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind13=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[13],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind14=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[14],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind15=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[15],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind16=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[16],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind17=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[17],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind18=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[18],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind19=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[19],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind20=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[20],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind21=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[21],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind22=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[22],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind23=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[23],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
 
 base=cbind(vec_ind1,vec_ind2[,2],vec_ind3[,2],vec_ind4[,2],vec_ind5[,2], vec_ind6[,2], vec_ind7[,2], vec_ind8[,2], vec_ind9[,2], vec_ind10[,2],vec_ind11[,2],vec_ind12[,2],vec_ind13[,2], vec_ind14[,2], vec_ind15[,2], vec_ind16[,2], vec_ind17[,2], vec_ind18[,2],vec_ind19[,2], vec_ind20[,2], vec_ind21[,2], vec_ind22[,2], vec_ind23[,2])
 rm(list=objects(pattern="vec_ind[0-23]"))
@@ -60,7 +60,7 @@ variacao=apply(base[,-1],2,function(x){
 
 peso=apply(base[,-1],2,function(x){
   peso=rep(NA,12)
-  for(i in 13:dim(base)[1]) peso[i]=(x[i-12]/base$`20543`[i-12])
+  for(i in 13:dim(base)[1]) peso[i]=(x[i-12]/base$`vec_ind23[, 2]`[i-12])
   return(peso)
 })
 
@@ -99,22 +99,22 @@ write.xlsx(base,"01 - Contribuicoes pessoa juridica recursos livres (em R$ milhõ
 #2)Pessoas Físicas - Recursos livres
 serie=c(20573,20574,20575,20576,20577,20578,20581,20582,20584,20585,20587,20588,20589,20591,20592,20570)
 
-vec_ind1 = get_series(serie[1], start_date = data1)
-vec_ind2 = get_series(serie[2], start_date = data1)
-vec_ind3 = get_series(serie[3], start_date = data1)
-vec_ind4 = get_series(serie[4], start_date = data1)
-vec_ind5 = get_series(serie[5], start_date = data1)
-vec_ind6 = get_series(serie[6], start_date = data1)
-vec_ind7 = get_series(serie[7], start_date = data1)
-vec_ind8 = get_series(serie[8], start_date = data1)
-vec_ind9 = get_series(serie[9], start_date = data1)
-vec_ind10 = get_series(serie[10], start_date = data1)
-vec_ind11 = get_series(serie[11], start_date = data1)
-vec_ind12 = get_series(serie[12], start_date = data1)
-vec_ind13 = get_series(serie[13], start_date = data1)
-vec_ind14 = get_series(serie[14], start_date = data1)
-vec_ind15 = get_series(serie[15], start_date = data1)
-vec_ind16 = get_series(serie[16], start_date = data1)
+vec_ind1=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[1],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind2=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[2],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind3=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[3],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind4=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[4],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind5=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[5],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind6=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[6],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind7=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[7],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind8=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[8],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind9=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[9],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind10=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[10],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind11=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[11],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind12=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[12],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind13=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[13],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind14=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[14],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind15=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[15],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind16=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[16],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
 
 base2=cbind(vec_ind1,vec_ind2[,2],vec_ind3[,2],vec_ind4[,2],vec_ind5[,2], vec_ind6[,2], vec_ind7[,2], vec_ind8[,2], vec_ind9[,2], vec_ind10[,2],vec_ind11[,2],vec_ind12[,2],vec_ind13[,2], vec_ind14[,2], vec_ind15[,2], vec_ind16[,2])
 rm(list=objects(pattern="vec_ind[0-16]"))
@@ -129,7 +129,7 @@ variacao=apply(base2[,-1],2,function(x){
 
 peso=apply(base2[,-1],2,function(x){
   peso=rep(NA,12)
-  for(i in 13:dim(base2)[1]) peso[i]=(x[i-12]/base2$`20570`[i-12])
+  for(i in 13:dim(base2)[1]) peso[i]=(x[i-12]/base2$`vec_ind16[, 2]`[i-12])
   return(peso)
 })
 
@@ -161,15 +161,15 @@ write.xlsx(base2,"02 - Contribuicoes pessoa fisica recursos livres (em R$ milhõe
 #3)Pessoas Jurídicas - Recursos direcionados
 serie=c(20595,20596,20598,20599,20601,20602,20603,20605,20594)
 
-vec_ind1 = get_series(serie[1], start_date = data1)
-vec_ind2 = get_series(serie[2], start_date = data1)
-vec_ind3 = get_series(serie[3], start_date = data1)
-vec_ind4 = get_series(serie[4], start_date = data1)
-vec_ind5 = get_series(serie[5], start_date = data1)
-vec_ind6 = get_series(serie[6], start_date = data1)
-vec_ind7 = get_series(serie[7], start_date = data1)
-vec_ind8 = get_series(serie[8], start_date = data1)
-vec_ind9 = get_series(serie[9], start_date = data1)
+vec_ind1=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[1],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind2=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[2],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind3=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[3],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind4=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[4],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind5=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[5],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind6=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[6],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind7=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[7],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind8=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[8],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind9=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[9],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
 
 base3=cbind(vec_ind1,vec_ind2[,2],vec_ind3[,2],vec_ind4[,2],vec_ind5[,2], vec_ind6[,2], vec_ind7[,2], vec_ind8[,2], vec_ind9[,2])
 rm(list=objects(pattern="vec_ind[0-9]"))
@@ -184,7 +184,7 @@ variacao=apply(base3[,-1],2,function(x){
 
 peso=apply(base3[,-1],2,function(x){
   peso=rep(NA,12)
-  for(i in 13:dim(base3)[1]) peso[i]=(x[i-12]/base3$`20594`[i-12])
+  for(i in 13:dim(base3)[1]) peso[i]=(x[i-12]/base3$`vec_ind9[, 2]`[i-12])
   return(peso)
 })
 
@@ -208,17 +208,17 @@ write.xlsx(base3,"03 - Contribuicoes pessoa juridica recursos direcionados (em R
 #4)Pessoas Físicas - Recursos direcionados
 serie=c(20607,20608,20610,20611,20613,20614,20615,20617,20618,20621,20606)
 
-vec_ind1 = get_series(serie[1], start_date = data1)
-vec_ind2 = get_series(serie[2], start_date = data1)
-vec_ind3 = get_series(serie[3], start_date = data1)
-vec_ind4 = get_series(serie[4], start_date = data1)
-vec_ind5 = get_series(serie[5], start_date = data1)
-vec_ind6 = get_series(serie[6], start_date = data1)
-vec_ind7 = get_series(serie[7], start_date = data1)
-vec_ind8 = get_series(serie[8], start_date = data1)
-vec_ind9 = get_series(serie[9], start_date = data1)
-vec_ind10 = get_series(serie[10], start_date = data1)
-vec_ind11 = get_series(serie[11], start_date = data1)
+vec_ind1=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[1],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind2=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[2],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind3=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[3],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind4=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[4],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind5=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[5],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind6=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[6],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind7=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[7],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind8=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[8],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind9=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[9],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind10=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[10],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
+vec_ind11=read.csv(url(paste("http://api.bcb.gov.br/dados/serie/bcdata.sgs.",serie[11],"/dados?formato=csv&dataInicial=",data1,"&dataFinal=",data2,sep="")),sep=";")
 
 base4=cbind(vec_ind1,vec_ind2[,2],vec_ind3[,2],vec_ind4[,2],vec_ind5[,2], vec_ind6[,2], vec_ind7[,2], vec_ind8[,2], vec_ind9[,2], vec_ind10[,2], vec_ind11[,2])
 rm(list=objects(pattern="vec_ind[0-11]"))
@@ -233,7 +233,7 @@ variacao=apply(base4[,-1],2,function(x){
 
 peso=apply(base4[,-1],2,function(x){
   peso=rep(NA,12)
-  for(i in 13:dim(base4)[1]) peso[i]=(x[i-12]/base4$`20606`[i-12])
+  for(i in 13:dim(base4)[1]) peso[i]=(x[i-12]/base4$`vec_ind11[, 2]`[i-12])
   return(peso)
 })
 
