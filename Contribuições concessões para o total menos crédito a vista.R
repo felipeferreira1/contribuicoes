@@ -9,7 +9,6 @@
 #PACOTES REQUERIDOS:
 #INSTALAR QUANDO NECESSÁRIO
 #EXEMPLO:install.packages("pryr")
-#library(xlsx)
 library(RCurl)
 library(XML)
 
@@ -103,18 +102,20 @@ contribuicao = function(base, total){
   return(contribuicao)
 }
 
+#1)Concessões totais
+serie=c(20636, 20637, 20638, 20639, 20640, 20641, 20643, 20644, 20645, 20646, 20648, 20649, 20651, 20652, 20653, 20654, 20657, 20658, 20659, 20660, 20661, 20665, 20666, 20668, 20669, 20670, 20673, 20674, 20676, 20677, 20679, 20680,20683, 20684,20687, 20688, 20690, 20691, 20693, 20694, 20695, 20697, 20699, 20700, 20702, 20703, 20705, 20706, 20707, 20709, 20710, 20713, 20631)
+base1 = coleta_dados(serie)
 
+serie=c(20655, 20681)
+base2 = coleta_dados(serie)
 
-#1)Concessões com recursos livres - Pessoa Jurídica
-serie=c(20636, 20637, 20638, 20639, 20640, 20641, 20643, 20644, 20645, 20646, 20648, 20649, 20651, 20652, 20653, 20654, 20655, 20657, 20658, 20659, 20660, 20661, 20665, 20666, 20668, 20669, 20670, 20673, 20674, 20676, 20677, 20679, 20680, 20681, 20683, 20684,20687, 20688, 20690, 20691, 20693, 20694, 20695, 20697, 20699, 20700, 20702, 20703, 20705, 20706, 20707, 20709, 20710, 20713, 20631)
+base1['20631'] = base1['20631'] - base2['20655'] - base2['20681']
 
-base = coleta_dados(serie)
-base = dia_util(base)
-base = deflaciona(base)
-base = contribuicao(base, '20631')
+base1 = dia_util(base1)
+base1 = deflaciona(base1)
+base1 = contribuicao(base1, '20631')
 
-
-names(base)=c("Data", "Concessões - Pessoas jurídicas - Desconto de duplicatas e recebíveis - Recursos Livres -  20366",
+names(base1)=c("Data", "Concessões - Pessoas jurídicas - Desconto de duplicatas e recebíveis - Recursos Livres -  20366",
                        "Concessões - Pessoas jurídicas - Desconto de cheques - Recursos Livres - 20637",
                        "Concessões - Pessoas jurídicas - Antecipação de faturas de cartão de crédito - Recursos Livres - 20638",
                        "Concessões - Pessoas jurídicas - Capital de giro com prazo de até 365 dias - Recursos Livres - 20639",
@@ -130,7 +131,6 @@ names(base)=c("Data", "Concessões - Pessoas jurídicas - Desconto de duplicatas e
                        "Concessões - Pessoas jurídicas - Compror - Recursos Livres - 20652",
                        "Concessões - Pessoas jurídicas - Cartão de crédito rotativo  - Recursos Livres - 20653",
                        "Concessões - Pessoas jurídicas - Cartão de crédito parcelado - Recursos Livres - 20654",
-                       "Concessões - Pessoas jurídicas - Cartão de crédito à vista - Recursos Livres - 20655",
                        "Concessões - Pessoas jurídicas - Adiantamento sobre contratos de câmbio (ACC) - Recursos Livres - 20657",
                        "Concessões - Pessoas jurídicas - Financiamento a importações - Recursos Livres - 20658",
                        "Concessões - Pessoas jurídicas - Financiamento a exportações - Recursos Livres	- 20659",
@@ -147,7 +147,6 @@ names(base)=c("Data", "Concessões - Pessoas jurídicas - Desconto de duplicatas e
                       "Concessões - Pessoas físicas - Arrendamento mercantil de outros bens - Recursos livres - 20677",
                       "Concessões - Pessoas físicas - Cartão de crédito rotativo - Recursos livres - 20679",
                       "Concessões - Pessoas físicas - Cartão de crédito parcelado - Recursos livres - 20680",
-                      "Concessões - Pessoas físicas - Cartão de crédito à vista - Recursos livres - 20681",
                       "Concessões - Pessoas físicas - Desconto de cheques - Recursos livres - 20683",
                       "Concessões - Pessoas físicas - Outros créditos livres - Recursos livres - 20684",
                       "Concessões - Pessoas jurídicas - Crédito rural com taxas de mercado - Recursos direcionados - 20687",
@@ -168,7 +167,7 @@ names(base)=c("Data", "Concessões - Pessoas jurídicas - Desconto de duplicatas e
                       "Concessões - Pessoas físicas - Microcrédito destinado a consumo - Recursos direcionados - 20709",
                       "Concessões - Pessoas físicas - Microcrédito destinado a microempreendedores - Recursos direcionados - 20710",
                       "Concessões - Pessoas físicas - Outros créditos direcionados - Recursos direcionados - 20713",
-                      "Concessões - Total - 20631")
+                      "Concessões - Total - 20631(menos crédito à vista)")
 
 
-write.csv2(base,"Contribuicoes concessoes para o total.csv", row.names = F)
+write.csv2(base1,"Contribuicoes concessoes para o total menos crédito a vista.csv", row.names = F)
