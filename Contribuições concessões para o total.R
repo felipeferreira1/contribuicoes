@@ -15,7 +15,7 @@ library(XML)
 
 #DEFINIR PASTAS DE RESULTADOS:
 getwd()
-setwd("C:\\Users\\b270780232\\Documents")
+setwd("C:\\Users\\User\\Documents")
 
 #Função de coleta de dados
 coleta_dados = function(series,datainicial="01/03/2011", datafinal = format(Sys.time(), "%d/%m/%Y")){

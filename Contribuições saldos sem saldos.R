@@ -15,7 +15,7 @@ library(XML)
 
 #DEFINIR PASTAS DE RESULTADOS:
 getwd()
-setwd("C:\\Users\\e270780232\\Documents")
+setwd("C:\\Users\\User\\Documents")
 
 #DEFINIÇÃO DE FUNÇÕES
 #Função de coleta de dados

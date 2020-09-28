@@ -15,7 +15,7 @@ library(XML)
 
 #DEFINIR PASTAS DE RESULTADOS:
 getwd()
-setwd("C:\\Users\\e270780232\\Documents")
+setwd("C:\\Users\\User\\Documents")
 
 #ATUALIZAR DATA (alinhar com primeiro mes dos dados)
 data1="01/03/2011"
