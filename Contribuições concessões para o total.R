@@ -9,7 +9,6 @@
 #PACOTES REQUERIDOS:
 #INSTALAR QUANDO NECESSÁRIO
 #EXEMPLO:install.packages("pryr")
-#library(xlsx)
 library(RCurl)
 library(XML)
 
@@ -112,6 +111,9 @@ base = coleta_dados(serie)
 base = dia_util(base)
 base = deflaciona(base)
 base = contribuicao(base, '20631')
+base[is.na(base)] <- 0 #Para poder calcular a soma das linhas
+residuo <- base[,length(base)] - rowSums(base[,-c(1, length(base))])
+base <- cbind(base, residuo)
 
 
 names(base)=c("Data", "Concessões - Pessoas jurídicas - Desconto de duplicatas e recebíveis - Recursos Livres -  20366",
@@ -168,7 +170,8 @@ names(base)=c("Data", "Concessões - Pessoas jurídicas - Desconto de duplicatas e
                       "Concessões - Pessoas físicas - Microcrédito destinado a consumo - Recursos direcionados - 20709",
                       "Concessões - Pessoas físicas - Microcrédito destinado a microempreendedores - Recursos direcionados - 20710",
                       "Concessões - Pessoas físicas - Outros créditos direcionados - Recursos direcionados - 20713",
-                      "Concessões - Total - 20631")
+                      "Concessões - Total - 20631",
+                      "Resíduo")
 
 
 write.csv2(base,"Contribuicoes concessoes para o total.csv", row.names = F)

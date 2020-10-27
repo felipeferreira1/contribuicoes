@@ -114,6 +114,9 @@ base1['20631'] = base1['20631'] - base2['20655'] - base2['20681']
 base1 = dia_util(base1)
 base1 = deflaciona(base1)
 base1 = contribuicao(base1, '20631')
+base1[is.na(base1)] <- 0 #Para poder calcular a soma das linhas
+residuo <- base1[,length(base1)] - rowSums(base1[,-c(1, length(base1))])
+base1 <- cbind(base1, residuo)
 
 names(base1)=c("Data", "Concessões - Pessoas jurídicas - Desconto de duplicatas e recebíveis - Recursos Livres -  20366",
                        "Concessões - Pessoas jurídicas - Desconto de cheques - Recursos Livres - 20637",
@@ -167,7 +170,8 @@ names(base1)=c("Data", "Concessões - Pessoas jurídicas - Desconto de duplicatas 
                       "Concessões - Pessoas físicas - Microcrédito destinado a consumo - Recursos direcionados - 20709",
                       "Concessões - Pessoas físicas - Microcrédito destinado a microempreendedores - Recursos direcionados - 20710",
                       "Concessões - Pessoas físicas - Outros créditos direcionados - Recursos direcionados - 20713",
-                      "Concessões - Total - 20631(menos crédito à vista)")
+                      "Concessões - Total - 20631(menos crédito à vista)",
+                      "Resíduo")
 
 
 write.csv2(base1,"Contribuicoes concessoes para o total menos crédito a vista.csv", row.names = F)
