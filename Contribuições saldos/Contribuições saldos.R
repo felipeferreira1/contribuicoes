@@ -42,47 +42,63 @@ coleta_dados_sgs = function(series,datainicial="01/03/2011", datafinal = format(
   return(base)
 }
 
+#Função para deflacionar séries com IPCA
+deflaciona = function(base, datainicial = '2011.03'){
+  url_ipea="http://www.ipeadata.gov.br/ExibeSerie.aspx?serid=36482"
+  ipea.table = readHTMLTable(htmlParse(getURL(url_ipea, useragent="curl/7.39.0 Rcurl/1.95.4.5")), header=T, which=3,stringsAsFactors=F)
+  ipea.table = ipea.table[-1:-4,-3]
+  names(ipea.table) = c("Data", "IPCA")
+  ipea.table = ipea.table[rowSums(is.na(ipea.table)) == 0,]
+  ipea.table = ipea.table[-dim(ipea.table)[1],]
+  ipea.table = ipea.table[-dim(ipea.table)[1],]
+  deflator = ipea.table[which(ipea.table$Data==datainicial):which(ipea.table$Data==format(as.Date(tail(base$data,1)),"%Y.%m")),]
+  deflator=as.numeric(gsub(",","\\.",gsub("\\.","",deflator[,2])))
+  base=cbind(base,deflator)
+  base=cbind(base[1],apply(base[,2:(length(base)-1)],2,function(x) x*(tail(deflator,1)/deflator)))
+  colnames(base)[1] = 'data'
+  return(base)
+}
+
+#Função para cálculo da contribuicao:
+#A função apply irá aplicar a função em cada coluna da base[,-1] (em cada série do bcb)
+contribuicao = function(base, total){
+  variacao=apply(base[,-1],2,function(x){
+    variacao_YoY=rep(NA,12)
+    for(i in 13:dim(base)[1])
+      variacao_YoY[i]=(x[i]/x[i-12])-1
+    return(variacao_YoY)
+  })
+  
+  peso=apply(base[,-1],2,function(x){
+    peso=rep(NA,12)
+    for(i in 13:dim(base)[1])
+      peso[i]=(x[i-12]/base[i-12, total])
+    return(peso)
+  })
+  
+  contribuicao = (peso*variacao)
+  contribuicao = as.data.frame(contribuicao)
+  contribuicao = cbind(base[,1], contribuicao)
+  contribuicao = contribuicao[-c(1:12),]
+  colnames(contribuicao)[1] = 'data'
+  return(contribuicao)
+}
+
 #1)Pessoas Jurídicas - Recursos livres
 series1=c(20544,20545,20546,20547,20548,20549,20551,20552,20553,20554,20556,20557,20559,20560,20561,20562,20563,20565,20566,20567,20568,20569,20543)
 
-base <- coleta_dados_sgs(series1)
+base1 <- coleta_dados_sgs(series1)
 
 #Deflacionando séries com IPCA
-base[,-1]=apply(base[,-1],2,function(x)as.numeric(gsub("\\.","",x)))
-base$data = as.Date(base$data, "%d/%m/%Y")
-url_ipea="http://www.ipeadata.gov.br/ExibeSerie.aspx?serid=36482"
-ipea.table = readHTMLTable(htmlParse(getURL(url_ipea, useragent="curl/7.39.0 Rcurl/1.95.4.5")), header=T, which=3,stringsAsFactors=F)
-ipea.table = ipea.table[-1:-4,-3]
-names(ipea.table) = c("Data", "IPCA")
-ipea.table = ipea.table[rowSums(is.na(ipea.table)) == 0,]
-ipea.table = ipea.table[-dim(ipea.table)[1],]
-ipea.table = ipea.table[-dim(ipea.table)[1],]
-deflator = ipea.table[which(ipea.table$Data=="2011.03"):which(ipea.table$Data==format(as.Date(tail(base$data,1)),"%Y.%m")),]
-deflator=as.numeric(gsub(",","\\.",gsub("\\.","",deflator[,2])))
+base1 <- deflaciona(base1)
 
-base=cbind(base,deflator)
-base=cbind(base[1],apply(base[,2:24],2,function(x) x*(tail(deflator,1)/deflator)))
+#Cálculo da contribuicao:
+contribuicao1 <- contribuicao(base1, '20543')
 
-# Cálculo da contribuicao:
-# A função apply irá aplicar a função em cada coluna da base[,-1] (em cada série do bcb)
-variacao=apply(base[,-1],2,function(x){
-  variacao_YoY=rep(NA,12)
-  for(i in 13:dim(base)[1]) variacao_YoY[i]=(x[i]/x[i-12])-1
-  return(variacao_YoY)
-})
+base1=merge(base1,contribuicao1, by = "data")
+base1=base1[,c(1,2,25,3,26,4,27,5,28,6,29,7,30,8,31,9,32,10,33,11,34,12,35,13,36,14,37,15,38,16,39,17,40,18,41,19,42,20,43,21,44,22,45,23,46,24,47)]
 
-peso=apply(base[,-1],2,function(x){
-  peso=rep(NA,12)
-  for(i in 13:dim(base)[1]) peso[i]=(x[i-12]/base$`20543`[i-12])
-  return(peso)
-})
-
-contribuicao = (peso*variacao)
-
-base=cbind(base,contribuicao)
-base=base[,c(1,2,25,3,26,4,27,5,28,6,29,7,30,8,31,9,32,10,33,11,34,12,35,13,36,14,37,15,38,16,39,17,40,18,41,19,42,20,43,21,44,22,45,23,46,24,47)]
-
-names(base)=c("Data", "Saldo (em R$ milhões) - Pessoas jurídicas - Desconto de duplicatas e recebíveis - 20544", "20544 - Contribuição para a variação total", 
+names(base1)=c("Data", "Saldo (em R$ milhões) - Pessoas jurídicas - Desconto de duplicatas e recebíveis - 20544", "20544 - Contribuição para a variação total", 
               "Saldo (em R$ milhões) - Pessoas jurídicas - Desconto de cheques- 20545", "20545 - Contribuição para a variação total", 
               "Saldo (em R$ milhões) - Pessoas jurídicas - Antecipação de faturas de cartão de crédito - 20546", "20546 - Contribuição para a variação total",  
               "Saldo (em R$ milhões) - Pessoas jurídicas - Capital de giro com prazo de até 365 dias - 20547", "20547 - Contribuição para a variação total", 
@@ -107,8 +123,8 @@ names(base)=c("Data", "Saldo (em R$ milhões) - Pessoas jurídicas - Desconto de d
               "Saldo (em R$ milhões) - Pessoas jurídicas - Total - 20543", "20543 - Contribuição para a variação total")
 
 
-write.csv2(base,"01 - Contribuicoes saldo pessoa juridica recursos livres (em R$ milhões).csv", row.names = F)
-export(base, "contribuicoes_saldos.xlsx", sheetName = "PJ_recliv")
+write.csv2(base1,"01 - Contribuicoes saldo pessoa juridica recursos livres (em R$ milhões).csv", row.names = F)
+export(base1, "contribuicoes_saldos.xlsx", sheetName = "PJ_recliv")
 
 #2)Pessoas Físicas - Recursos livres
 series2=c(20573,20574,20575,20576,20577,20578,20581,20582,20584,20585,20587,20588,20589,20591,20592,20570)
@@ -116,27 +132,12 @@ series2=c(20573,20574,20575,20576,20577,20578,20581,20582,20584,20585,20587,2058
 base2 <- coleta_dados_sgs(series2)
 
 #Deflacionando séries com IPCA
-base2[,-1]=apply(base2[,-1],2,function(x)as.numeric(gsub("\\.","",x)))
-base2=cbind(base2,deflator)
-base2=cbind(base2[1],apply(base2[,2:17],2,function(x) x*(tail(deflator,1)/deflator)))
+base2 <- deflaciona(base2)
 
-# Cálculo da contribuicao:
-# A função apply irá aplicar a função em cada coluna da base[,-1] (em cada série do bcb)
-variacao=apply(base2[,-1],2,function(x){
-  variacao_YoY=rep(NA,12)
-  for(i in 13:dim(base2)[1]) variacao_YoY[i]=(x[i]/x[i-12])-1
-  return(variacao_YoY)
-})
+#Cálculo da contribuicao:
+contribuicao2 <- contribuicao(base2, '20570')
 
-peso=apply(base2[,-1],2,function(x){
-  peso=rep(NA,12)
-  for(i in 13:dim(base2)[1]) peso[i]=(x[i-12]/base2$`20570`[i-12])
-  return(peso)
-})
-
-contribuicao = (peso*variacao)
-
-base2=cbind(base2,contribuicao)
+base2=merge(base2,contribuicao2, by = "data")
 base2=base2[,c(1,2,18,3,19,4,20,5,21,6,22,7,23,8,24,9,25,10,26,11,27,12,28,13,29,14,30,15,31,16,32,17,33)]
 
 names(base2)=c("Data", "Saldo (em R$ milhões) - Pessoas físicas - Cheque especial - 20573", "20573 - Contribuição para a variação total",  
@@ -166,27 +167,12 @@ series3=c(20595,20596,20598,20599,20601,20602,20603,20605,20594)
 base3 <- coleta_dados_sgs(series3)
 
 #Deflacionando séries com IPCA
-base3[,-1]=apply(base3[,-1],2,function(x)as.numeric(gsub("\\.","",x)))
-base3=cbind(base3,deflator)
-base3=cbind(base3[1],apply(base3[,2:10],2,function(x) x*(tail(deflator,1)/deflator)))
+base3 <- deflaciona(base3)
 
-# Cálculo da contribuicao:
-# A função apply irá aplicar a função em cada coluna da base[,-1] (em cada série do bcb)
-variacao=apply(base3[,-1],2,function(x){
-  variacao_YoY=rep(NA,12)
-  for(i in 13:dim(base3)[1]) variacao_YoY[i]=(x[i]/x[i-12])-1
-  return(variacao_YoY)
-})
+#Cálculo da contribuicao:
+contribuicao3 <- contribuicao(base3, '20594')
 
-peso=apply(base3[,-1],2,function(x){
-  peso=rep(NA,12)
-  for(i in 13:dim(base3)[1]) peso[i]=(x[i-12]/base3$`20594`[i-12])
-  return(peso)
-})
-
-contribuicao = (peso*variacao)
-
-base3=cbind(base3,contribuicao)
+base3=merge(base3,contribuicao3, by = "data")
 base3=base3[,c(1,2,11,3,12,4,13,5,14,6,15,7,16,8,17,9,18,10,19)]
 
 names(base3)=c("Data", "Saldo (em R$ milhões) - Pessoas jurídicas - Crédito rural com taxas de mercado - 20595", "20595 - Contribuição para a variação total", 
@@ -208,27 +194,12 @@ series4=c(20607,20608,20610,20611,20613,20614,20615,20617,20618,20621,20606)
 base4 <- coleta_dados_sgs(series4)
 
 #Deflacionando séries com IPCA
-base4[,-1]=apply(base4[,-1],2,function(x)as.numeric(gsub("\\.","",x)))
-base4=cbind(base4,deflator)
-base4=cbind(base4[1],apply(base4[,2:12],2,function(x) x*(tail(deflator,1)/deflator)))
+base4 <- deflaciona(base4)
 
-# Cálculo da contribuicao:
-# A função apply irá aplicar a função em cada coluna da base[,-1] (em cada série do bcb)
-variacao=apply(base4[,-1],2,function(x){
-  variacao_YoY=rep(NA,12)
-  for(i in 13:dim(base4)[1]) variacao_YoY[i]=(x[i]/x[i-12])-1
-  return(variacao_YoY)
-})
+#Cálculo da contribuicao:
+contribuicao4 <- contribuicao(base4, '20606')
 
-peso=apply(base4[,-1],2,function(x){
-  peso=rep(NA,12)
-  for(i in 13:dim(base4)[1]) peso[i]=(x[i-12]/base4$`20606`[i-12])
-  return(peso)
-})
-
-contribuicao = (peso*variacao)
-
-base4=cbind(base4,contribuicao)
+base4=merge(base4,contribuicao4, by = "data")
 base4=base4[,c(1,2,13,3,14,4,15,5,16,6,17,7,18,8,19,9,20,10,21,11,22,12,23)]
 
 names(base4)=c("Data", " Saldo (R$ milhões) - Pessoas físicas - Crédito rural com taxas de mercado - 20607", "20607 - Contribuição para a variação total", 

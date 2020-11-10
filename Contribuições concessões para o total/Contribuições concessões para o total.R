@@ -111,7 +111,7 @@ serie=c(20636, 20637, 20638, 20639, 20640, 20641, 20643, 20644, 20645, 20646, 20
 base = coleta_dados(serie)
 base = dia_util(base)
 base = deflaciona(base)
-base = contribuicao(base, '20631')
+base = contribuicao(base, "20631")
 base[is.na(base)] <- 0 #Para poder calcular a soma das linhas
 residuo <- base[,length(base)] - rowSums(base[,-c(1, length(base))])
 base <- cbind(base, residuo)

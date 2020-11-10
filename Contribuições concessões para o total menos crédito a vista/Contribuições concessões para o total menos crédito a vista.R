@@ -61,7 +61,7 @@ dia_util = function(base, datainicial = '2011.03'){
   return(base)
 }
 
-#Deflacionando séries com IPCA
+#Função para deflacionar séries com IPCA
 deflaciona = function(base, datainicial = '2011.03'){
   url_ipea="http://www.ipeadata.gov.br/ExibeSerie.aspx?serid=36482"
   ipea.table = readHTMLTable(htmlParse(getURL(url_ipea, useragent="curl/7.39.0 Rcurl/1.95.4.5")), header=T, which=3,stringsAsFactors=F)
@@ -78,8 +78,8 @@ deflaciona = function(base, datainicial = '2011.03'){
   return(base)
 }
 
-# Cálculo da contribuicao:
-# A função apply irá aplicar a função em cada coluna da base[,-1] (em cada série do bcb)
+#Função para cálculo da contribuicao:
+#A função apply irá aplicar a função em cada coluna da base[,-1] (em cada série do bcb)
 contribuicao = function(base, total){
   variacao=apply(base[,-1],2,function(x){
     variacao_YoY=rep(NA,12)
