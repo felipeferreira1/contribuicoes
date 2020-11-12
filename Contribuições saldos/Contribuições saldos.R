@@ -124,7 +124,7 @@ names(base1)=c("Data", "Saldo (em R$ milhões) - Pessoas jurídicas - Desconto de 
 
 
 write.csv2(base1,"01 - Contribuicoes saldo pessoa juridica recursos livres (em R$ milhões).csv", row.names = F)
-export(base1, "contribuicoes_saldos.xlsx", sheetName = "PJ_recliv")
+export(base1, "Contribuições saldo pessoas jurídica e física com recursos livres e direcionados(fonte).xlsx", sheetName = "PJ Livres")
 
 #2)Pessoas Físicas - Recursos livres
 series2=c(20573,20574,20575,20576,20577,20578,20581,20582,20584,20585,20587,20588,20589,20591,20592,20570)
@@ -159,7 +159,7 @@ names(base2)=c("Data", "Saldo (em R$ milhões) - Pessoas físicas - Cheque especia
 
 
 write.csv2(base2,"02 - Contribuicoes saldo pessoa fisica recursos livres (em R$ milhões).csv", row.names = F)
-export(base2, "contribuicoes_saldos.xlsx", which = "PF_recliv")
+export(base2, "Contribuições saldo pessoas jurídica e física com recursos livres e direcionados(fonte).xlsx", which = "PF Livres")
 
 #3)Pessoas Jurídicas - Recursos direcionados
 series3=c(20595,20596,20598,20599,20601,20602,20603,20605,20594)
@@ -186,7 +186,7 @@ names(base3)=c("Data", "Saldo (em R$ milhões) - Pessoas jurídicas - Crédito rura
                "Saldo (em R$ milhões) - Pessoas jurídicas - Total - 20594", "20594 - Contribuição para a variação total")
 
 write.csv2(base3,"03 - Contribuicoes saldo pessoa juridica recursos direcionados (em R$ milhões).csv", row.names = F)
-export(base3, "contribuicoes_saldos.xlsx", which = "PJ_recdir")
+export(base3, "Contribuições saldo pessoas jurídica e física com recursos livres e direcionados(fonte).xlsx", which = "PJ Direcionados")
 
 #4)Pessoas Físicas - Recursos direcionados
 series4=c(20607,20608,20610,20611,20613,20614,20615,20617,20618,20621,20606)
@@ -216,4 +216,4 @@ names(base4)=c("Data", " Saldo (R$ milhões) - Pessoas físicas - Crédito rural co
 
 
 write.csv2(base4,"04 - Contribuicoes saldo pessoa fisica recursos direcionados (em R$ milhões).csv", row.names = F)
-export(base4, "contribuicoes_saldos.xlsx", which = "PF_recdir")
+export(base4, "Contribuições saldo pessoas jurídica e física com recursos livres e direcionados(fonte).xlsx", which = "PF Direcionados")

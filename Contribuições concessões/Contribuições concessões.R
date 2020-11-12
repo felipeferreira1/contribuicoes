@@ -143,7 +143,7 @@ names(base1)=c("Data", "Concessões - Pessoas jurídicas - Desconto de duplicatas 
 
 
 write.csv2(base1,"01 - Contribuicoes concessoes pessoa juridica recursos livres.csv", row.names = F)
-export(base1, "contribuicoes_concessoes.xlsx", sheetName = "PJ_recliv")
+export(base1, "Contribuições concessões pessoas jurídica e física com recursos livres e direcionados(fonte).xlsx", sheetName = "PJ Livres")
 
 #2)Concessões com recursos livres - Pessoa Física
 series2=c(20665, 20666, 20668, 20669, 20670, 20673, 20674, 20676, 20677, 20679, 20680, 20681, 20683, 20684, 20662)
@@ -157,7 +157,7 @@ base2 <- dia_util(base2)
 base2 <- deflaciona(base2)
 
 #Calculando da contribuicao:
-base2 <- contribuicao(base1, "20662")
+base2 <- contribuicao(base2, "20662")
 
 names(base2)=c("Data", "Concessões - Pessoas físicas - Cheque especial - Recursos livres - 20665",
                "Concessões - Pessoas físicas - Crédito pessoal não consignado - Recursos livres - 20666",
@@ -176,7 +176,7 @@ names(base2)=c("Data", "Concessões - Pessoas físicas - Cheque especial - Recurso
                "Concessões - Pessoas físicas - Total - Recursos livres - 20662")
 
 write.csv2(base2,"02 - Contribuicoes concessoes pessoa fisica recursos livres.csv", row.names = F)
-export(base2, "contribuicoes_concessoes.xlsx", which = "PF_recliv")
+export(base2, "Contribuições concessões pessoas jurídica e física com recursos livres e direcionados(fonte).xlsx", which = "PF Livres")
 
 #3)Concessões com recursos direcionados - Pessoa Jurídica
 series3=c(20687, 20688, 20690, 20691, 20693, 20694, 20695, 20697, 20686)
@@ -205,7 +205,7 @@ names(base3)=c("Data", "Concessões - Pessoas jurídicas - Crédito rural com taxas
 
 
 write.csv2(base3,"03 - Contribuicoes concessoes pessoa juridica recursos direcionados.csv", row.names = F)
-export(base3, "contribuicoes_concessoes.xlsx", which = "PJ_recdir")
+export(base3, "Contribuições concessões pessoas jurídica e física com recursos livres e direcionados(fonte).xlsx", which = "PJ Direcionados")
 
 #4)Concessões com recursos direcionados - Pessoa Física
 series4=c(20699, 20700, 20702, 20703, 20705, 20706, 20707, 20709, 20710, 20713, 20698)
@@ -236,4 +236,4 @@ names(base4)=c("Data", "Concessões - Pessoas físicas - Crédito rural com taxas d
 
 
 write.csv2(base4,"04 - Contribuicoes concessoes pessoa fisica recursos direcionados.csv", row.names = F)
-export(base4, "contribuicoes_concessoes.xlsx", which = "PF_recdir")
+export(base4, "Contribuições concessões pessoas jurídica e física com recursos livres e direcionados(fonte).xlsx", which = "PF Direcionados")
